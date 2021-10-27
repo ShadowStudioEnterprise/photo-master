@@ -70,5 +70,5 @@
 <!-- Principal Content Start -->
 
 <?php
-   include __DIR__."partials/fin-doc.part.php"
+  include __DIR__ . "/partials/fin-doc.part.php";
 ?>
