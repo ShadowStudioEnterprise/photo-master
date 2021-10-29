@@ -18,7 +18,8 @@
               <li class="<?=(esOpcionMenuActiva("about")?"active" : "");?> lien"><a href="<?=(esOpcionMenuActiva("about")?"#" : "/about.php");?>"><i class="fa fa-bookmark sr-icons"></i> About</a></li>
               <li class="<?= (existeOpcionMenuActivaEnArray(["blog", "single_post"])? "active" : "");?> lien"><a href="<?=(esOpcionMenuActiva("blog")?"#" : "/blog.php");?>"><i class="fa fa-file-text sr-icons"></i> Blog</a></li>
               <li class="<?=(esOpcionMenuActiva("contact")?"active" : "");?> lien"><a href="<?=(esOpcionMenuActiva("contact")?"#" : "/contact.php");?>"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
-              <li class="<?=(esOpcionMenuActiva("galeria")?"active" : "");?>"><a href="<?=(esOpcionMenuActiva("galeria")?"#" : "/galeria.php");?>"><i class="fa fa-image sr-icons"></i> Galeria</a></li>
+              <li class="<?=(esOpcionMenuActiva("galeria")?"active" : "");?> lien"><a href="<?=(esOpcionMenuActiva("galeria")?"#" : "/galeria.php");?>"><i class="fa fa-image sr-icons"></i> Galeria</a></li>
+              <li class="<?=(esOpcionMenuActiva("asociado")?"active" : "");?>"><a href="<?=(esOpcionMenuActiva("asociado")?"#" : "/asociado.php");?>"><i class="fa fa-hand-o-right sr-icons"></i> Asociados</a></li>
             </ul>
          </div>
      </div>

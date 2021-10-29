@@ -22,3 +22,7 @@ function sanitizeInput(string $data )
     $data=htmlspecialchars($data);
     return $data;
 }
+function getAsociados(array $asociados) {
+    shuffle($asociados);
+    return  array_slice($asociados, 0,3);
+}
