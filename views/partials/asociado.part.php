@@ -1,32 +1,21 @@
-   <!-- Box within partners name and logo -->
-   <div class="last-box row">
-  
-        <div class="col-xs-12 col-sm-4 col-sm-push-4 last-block">
+ <!-- Box within partners name and logo -->
+ <div class="last-box row">
+    <div class="col-xs-12 col-sm-4 col-sm-push-4 last-block">
         <div class="partner-box text-center">
-          <p>
-          <i class="fa fa-map-marker fa-2x sr-icons"></i> 
-          <span class="text-muted">35 North Drive, Adroukpape, PY 88105, Agoe Telessou</span>
-          </p>
-          <h4>Our Main Partners</h4>
-          <hr>
-          <?php foreach ($asociados as $asociadoE):?>
-          <div class="text-muted text-left">
+            <p>
+            <i class="fa fa-map-marker fa-2x sr-icons"></i> 
+            <span class="text-muted">35 North Drive, Adroukpape, PY 88105, Agoe Telessou</span>
+            </p>
+            <h4>Our Main Partners</h4>
+            <hr>
+            <div class="text-muted text-left">
+            <?php foreach($asociados as $asociado): ?>
             <ul class="list-inline">
-              <li><img src="<?=$asociadoE->getUrlLogo()?>" alt="<?=$asociadoE->getDescripcion()?>"></li>
-              <li><?=$asociadoE->getNombre()?></li>
-            </ul>
-          </div>
-          <?php  endforeach ?>
+                <li><img src="<?=$asociado->getUrlImagen();?>" alt="<?=$asociado->getDescripcion();?>" title="<?=$asociado->getDescripcion();?>"></li>
+                <li><?=$asociado->getNombre();?></li>         </ul>
+            <?php endforeach ?>    
+            </div>
         </div>
-        </div>
-      </div>
-    <!-- End of Box within partners name and logo -->
-    <!--  <ul class="list-inline">
-              <li><img src="images/index/log1.jpg" alt="logo"></li>
-              <li>Second Partner Name</li>
-            </ul>
-            <ul class="list-inline">
-              <li><img src="images/index/log3.jpg" alt="logo"></li>
-              <li>Third Partner Name</li>
-
--->
+    </div>
+</div>
+<!-- End of Box within partners name and logo -->

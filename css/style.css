@@ -1210,8 +1210,6 @@ img{
 }
 /*-- End of Contact Page Stylesheet --*/
 /* Estilos propios */
-
 #contact input.has-error{
-    background-color:rgba(100,0,0,0.5);
+	background-color:rgba(100,0,0,0.5);
 }
-
