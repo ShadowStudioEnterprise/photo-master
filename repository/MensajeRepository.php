@@ -10,7 +10,7 @@ class MensajeRepository extends QueryBuilder
 
     public function __construct(){
 
-        parent::__construct('mensaje', 'Mensaje');
+        parent::__construct('mensajes', 'Mensaje');
 
     }
 }

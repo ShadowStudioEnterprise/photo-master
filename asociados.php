@@ -14,7 +14,18 @@
     require_once "./exceptions/FileException.php";
     require_once "./utils/SimpleImage.php";
     require_once "./entity/Asociado.php";
+    require_once "./database/QueryBuilder.php";
+    require_once "./database/Connection.php";
+    require_once "./repository/AsociadoRepository.php";
+    require_once "./core/App.php";
+
+    $config = require_once 'app/config.php';
+    App::bind('config',$config);
     
+    App::bind('connection',Connection::make());
+
+    $repositorio =new AsociadoRepository();
+
     $info = $urlImagen = "";
 
     $nombre = new InputElement('text');
@@ -64,8 +75,11 @@
               ->fromFile(Asociado::RUTA_IMAGENES_ASOCIADO . $file->getFileName())  
               ->resize(50, 50)
               ->toFile(Asociado::RUTA_IMAGENES_ASOCIADO . $file->getFileName());
-              $info = 'Imagen enviada correctamente'; 
+
               $urlImagen = Asociado::RUTA_IMAGENES_ASOCIADO . $file->getFileName();
+              $asociado= new Asociado($nombre->getValue(),$file->getFileName(),$description->getValue());
+              $repositorio ->save($asociado);
+              $info = 'Asociado subido correctamente'; 
               $form->reset();
             
           }catch(Exception $err) {
