@@ -37,7 +37,7 @@
 
     try {
         $asociados =$repositorioAsociado ->findAll();        
-        getAsociados($asociados);
+        $asociados =getAsociados($asociados);
       } catch (QueryException $qe) {
         $asociados =[];
       }
