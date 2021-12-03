@@ -18,50 +18,60 @@ require_once "./database/Connection.php";
 require_once "./repository/UsuarioRepository.php";
 
 require_once "./core/App.php";
-$info = "";
-$config = require_once 'app/config.php';
-App::bind('config', $config);
-App::bind('connection', Connection::make($config['database']));
+    session_start();
+    $info = "";
+    $repositorio = new UsuarioRepository(new BCryptPasswordGenerator());
+    $nombreUsuario = new InputElement('text');
+    $nombreUsuario
+      ->setName('username')
+      ->setId('username');
 
-$repositorio = new UsuarioRepository();
+    $nombreUsuario->setValidator(new NotEmptyValidator('El nombre de usuari@ no puede estar vacío', true));
 
-$nombreUsuario = new InputElement('username', 'text', 'username');
-$nombreUsuario->setValidator(new NotEmptyValidator('El nombre de usuari@ no puede estar vacío', true));
+    $userWrapper = new MyFormControl($nombreUsuario, 'Nombre de usuari@', 'col-xs-12');
 
-$userWrapper = new MyFormControl($nombreUsuario, 'Nombre de usuari@', 'col-xs-12');
+    $email = new EmailElement();
 
-$email = new EmailElement('email', 'email');
+    $email
+      ->setName('email')
+      ->setId('email');
 
-$emailWrapper = new MyFormControl($email, 'Correo electrónico', 'col-xs-12');
+    $emailWrapper = new MyFormControl($email, 'Correo electrónico', 'col-xs-12');
 
-$pv = new NotEmptyValidator('La contraseña no puede estar vacía', true);
-$mlv = new MinLengthValidator(6, 'La contraseña debe tener al menos 6 caracteres', false);
-$mlcv =  new MinLowerCaseValidator(2, 'La contraseña debe tener al menos 2 letras minúsculas', false);
-$mdv =  new MinDigitValidator(2, 'La contraseña debe tener al menos 2 dígitos', false);
+    $pv = new NotEmptyValidator('La contraseña no puede estar vacía', true);
 
-$mlcv->setNextValidator($mdv);
-$mlv->setNextValidator($mlcv);
-$pv->setNextValidator($mlv);
+    $pass = new PasswordElement();
 
-$pass = new PasswordElement('password', 'password');
-$pass->setValidator($pv);
+    $pass
+    ->setName('password')
+    ->setId('password');
 
-$passWrapper = new MyFormControl($pass, 'Contraseña', 'col-xs-12');
+    $pass->setValidator($pv);
 
-$repite = new PasswordElement('repite_password', 'repite_password');
-$repite->setValidator(new PasswordMatchValidator($pass, 'Las contraseñas no coinciden', true));
+    $passWrapper = new MyFormControl($pass, 'Contraseña', 'col-xs-12');
 
-$repiteWrapper = new MyFormControl($repite, 'Repita la contraseña', 'col-xs-12');
+    $repite = new PasswordElement();
 
-$b = new ButtonElement('Registro', '', '', 'pull-right btn btn-lg sr-button');
+    $repite
 
-$form = new FormElement((!empty($hrefReturnToUrl) ? '?returnToUrl=' . $hrefReturnToUrl : ''));
-$form
-  ->appendChild($userWrapper)
-  ->appendChild($emailWrapper)
-  ->appendChild($passWrapper)
-  ->appendChild($repiteWrapper)
-  ->appendChild($b);
+    ->setName('repite_password')
+
+    ->setId('repite_password');
+
+    $repite->setValidator(new PasswordMatchValidator($pass, 'Las contraseñas no coinciden', true));
+
+    $repiteWrapper = new MyFormControl($repite, 'Repita la contraseña', 'col-xs-12');
+
+    $b = new ButtonElement('Registro', '', '', 'pull-right btn btn-lg sr-button');
+
+    $form = new FormElement();
+
+    $form
+      ->appendChild($userWrapper)
+      ->appendChild($emailWrapper)
+      ->appendChild($passWrapper)
+      ->appendChild($repiteWrapper)
+      ->appendChild($b);
 
   if("POST"===$_SERVER["REQUEST_METHOD"]){
       $form->validate();

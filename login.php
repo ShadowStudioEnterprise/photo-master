@@ -9,10 +9,10 @@ require_once "./utils/Forms/custom/MyFormControl.php";
 require_once "./entity/Usuario.php";
 require_once "./database/Connection.php";
 require_once "./repository/UsuarioRepository.php";
-
+require_once "./security/PlainPasswordGenerator.php";
 require_once "./core/App.php";
 $info = "";
-
+$repositorio = new UsuarioRepository(new BCryptPasswordGenerator());
 $nombreUsuario = new InputElement('text');
 $nombreUsuario 
     ->setName('username')
@@ -37,30 +37,13 @@ $form
       $form->validate();
       if (!$form->hasError()) {
           try {
-              $usuario = new Usuario($nombreUsuario->getValue(),$email->getValue(),$pass->getValue());
-              $repositorio->save($usuario);
-              $_SESSION['username']=$nombreUsuario->getValue();
-              if (isset($_GET['returnToUtl1'])) {
-                  header('location: '.$_GET['returnTOUrl1']);
-              } else if (isset($_POST['returnToUtl1'])) {
-                  header('location: '.$_POST['returnTOUrl1']);
-              }{
-                  header('location: /');
-              }
-              
+              $usuario = $repositorio->findByUserNameAndPassword($nombreUsuario->getValue(),$pass->getValue());
+              $_SESSION['username']=$usuario->getUsername();
+              header('location: /');
           } catch (QueryException $qe) {
-              $excepcion = $qe->getMessage();
-              if ((strpos($excepcion,'1062')!==false)) {
-                  if ((strpos($excepcion,'username')!==false)) {
-                      $form->addError('Ya existe un usario registrado con dicho nombre de usario');
-                  }else if ((strpos($excepcion,'email')!==false)) {
-                      $form->addError('Ya existe un usario registrado con dicho correo electronico');
-                }else{
-                    $form->addError($qe->getMessage());
-                }
-                }else{
-                    $form->addError($qe->getMessage());
-              }
+              $form->addError($qe->getMessage());
+          }   catch (NotFoundException $qe) {
+              $form->addError($qe->getMessage());
           } catch (Exception $err){
               $form->addError($err->getMessage());
           }

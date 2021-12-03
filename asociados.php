@@ -19,6 +19,14 @@
     require_once "./repository/AsociadoRepository.php";
     require_once "./core/App.php";
 
+    session_start();
+
+     if (!isset($_SESSION['username'])) {
+
+       header('location: /login.php');
+
+     }
+
     $config = require_once 'app/config.php';
     App::bind('config',$config);
     

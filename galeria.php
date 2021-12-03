@@ -21,6 +21,14 @@
     require_once "./repository/ImagenGaleriaRepository.php";
     require_once "./repository/CategoriaRepository.php";
     
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
+
+      header('location: /login.php');
+
+    }
+
     $config = require_once 'app/config.php';
     App::bind('config',$config);
     

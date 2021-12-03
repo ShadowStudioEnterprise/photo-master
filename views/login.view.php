@@ -6,13 +6,13 @@
 
   ?>
 
-<div id="register">
+<div id="login">
 
     <div class="container">
 
         <div class="col-xs-12 col-sm-8 col-sm-push-2">
 
-            <h1>REGISTRO</h1>
+            <h1>LOGIN</h1>
 
             <hr>
 
@@ -30,7 +30,7 @@
 
                 <?=$form->render();?>
 
-                <a href='/login.php'>
+                <a href='/register.php<?=(!empty($hrefReturnToUrl) ? '?returnToUrl1='.$hrefReturnToUrl :'')?>'>
 
                     ¿Ya eres miembro? Acceso a usuari@s
 
